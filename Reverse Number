@@ -1,0 +1,6 @@
+// http://judge.telerikacademy.com/problem/07reversenumber
+
+const number = gets().split('');
+const reversed = number.reverse().join('');
+
+print(reversed);
