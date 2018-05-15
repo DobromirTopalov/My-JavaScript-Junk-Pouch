@@ -1,0 +1,15 @@
+// http://judge.telerikacademy.com/problem/02forestroad
+
+const width = +gets();
+const dot = '.';
+const asteriks = '*';
+
+for (let i = 0, k = 1; i < width; i += 1, k += 1) {
+  const line = dot.repeat(i) + asteriks + dot.repeat(width - i - 1);
+  print(line);
+}
+
+for (let i = 1; i < width; i += 1) {
+  const line = dot.repeat(width - i - 1) + asteriks + dot.repeat(i);
+  print(line);
+}
