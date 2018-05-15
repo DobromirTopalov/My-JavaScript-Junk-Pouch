@@ -1,0 +1,21 @@
+// http://judge.telerikacademy.com/problem/01bindigitscount
+
+const B = +gets();
+const N = +gets();
+const numbers = [];
+let result = '';
+
+for (let i = 0; i < N; i += 1) {
+  numbers[i] = (+gets()).toString(2);
+  let counter = 0;
+
+  for (let j = 0; j < numbers[i].length; j += 1) {
+    const bit = +(numbers[i][j]);
+    if (bit === B) {
+      counter += 1;
+    }
+  }
+  result += counter + '\n';
+}
+
+print(result.trim());
