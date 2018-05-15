@@ -1,0 +1,35 @@
+// http://judge.telerikacademy.com/problem/01tubes
+
+const numberOfTubes = +gets();
+const numberOfFriends = +gets();
+const sizesOfTubes = [];
+
+for (let sizes = 0; sizes < numberOfTubes; sizes += 1) {
+  sizesOfTubes[sizes] = +gets();
+}
+
+const longestTube = Math.max(...sizesOfTubes);
+let finalResult = -1;
+
+let left = 1;
+let right = longestTube;
+
+while (left <= right) {
+  const middle = ((left + right) / 2) | 0;
+
+  let countOfSameCuts = 0;
+  for (let tube = 0; tube < numberOfTubes; tube += 1) {
+    countOfSameCuts += (sizesOfTubes[tube] / middle) | 0;
+  }
+
+  if (countOfSameCuts >= numberOfFriends) {
+    left = middle + 1;
+    finalResult = middle;
+  }
+
+  if (countOfSameCuts < numberOfFriends) {
+    right = middle - 1;
+  }
+}
+
+print(finalResult);
