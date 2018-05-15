@@ -1,0 +1,30 @@
+// http://judge.telerikacademy.com/problem/03trapezoid
+
+const widthTop = +gets();
+const widthBottom = widthTop * 2;
+const widthHeight = widthTop + 1;
+
+let dots = '.';
+let asterics = '*';
+
+for (let i = 0, k = 0; i < widthHeight; i += 1) {
+  if (i === 0) {
+    print(dots.repeat(widthTop) + asterics.repeat(widthTop));
+    continue;
+  }
+  
+  if (i === widthHeight - 1) {
+    print(asterics.repeat(widthBottom));
+    break;
+  }
+  const repeatDotFactorLeft = widthTop - i;
+  const repeatDotFactorRight = widthTop + k;
+  k += 1;
+
+  let newLine = '';
+  newLine += dots.repeat(repeatDotFactorLeft) + asterics;
+  newLine += dots.repeat(repeatDotFactorRight - 1) + asterics;
+  print(newLine);
+  
+}
+quit(0);
