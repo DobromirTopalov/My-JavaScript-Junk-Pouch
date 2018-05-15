@@ -1,0 +1,61 @@
+// http://judge.telerikacademy.com/problem/13dectohex
+
+let number = +gets();
+let line = '';
+
+while (number) {
+  switch (number % 16) {
+    case 0:
+      line += 0;
+      break;
+    case 1:
+      line += 1;
+      break;
+    case 2:
+      line += 2;
+      break;
+    case 3:
+      line += 3;
+      break;
+    case 4:
+      line += 4;
+      break;
+    case 5:
+      line += 5;
+      break;
+    case 6:
+      line += 6;
+      break;
+    case 7:
+      line += 7;
+      break;
+    case 8:
+      line += 8;
+      break;
+    case 9:
+      line += 9;
+      break;
+    case 10:
+      line += 'A';
+      break;
+    case 11:
+      line += 'B';
+      break;
+    case 12:
+      line += 'C';
+      break;
+    case 13:
+      line += 'D';
+      break;
+    case 14:
+      line += 'E';
+      break;
+    case 15:
+      line += 'F';
+      break;
+
+    default:
+  }
+  number = parseInt(number / 16, 10);
+}
+print([...line].reverse().join(''));
