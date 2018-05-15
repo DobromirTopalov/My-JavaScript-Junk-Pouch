@@ -1,0 +1,28 @@
+// http://judge.telerikacademy.com/problem/01permutations
+
+const N = +gets();
+
+const printPermutations = (n, index, permutations, used, allpermutations) => {
+  if (index === n) {
+    allpermutations.push(permutations.join(' '));
+    return;
+  }
+
+  for (let i = 0; i < n; i += 1) {
+    if (used[i]) {
+      continue;
+    }
+
+    permutations[index] = i + 1;
+    used[i] = true;
+    printPermutations(n, index + 1, permutations, used, allpermutations);
+    used[i] = false;
+  }
+};
+
+const finalpermutations = [];
+const used = Array.from({ length: N });
+const permutations = Array.from({ length: N });
+
+printPermutations(N, 0, permutations, used, finalpermutations);
+finalpermutations.forEach((element) => print(element));
