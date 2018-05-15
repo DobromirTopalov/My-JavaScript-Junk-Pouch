@@ -1,0 +1,20 @@
+// http://judge.telerikacademy.com/problem/09intdoublestring
+
+const type = gets();
+let value = gets();
+
+switch (type) {
+  case 'integer':
+    value = +value + 1;
+    print(value);
+    break;
+  case 'real':
+    value = +value + 1;
+    print(value.toFixed(2));
+    break;
+  case 'text':
+    value += '*';
+    print(value);
+    break;
+    default:
+}
