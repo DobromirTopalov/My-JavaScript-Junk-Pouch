@@ -1,0 +1,22 @@
+// http://judge.telerikacademy.com/problem/02oddnumber
+
+const N = +gets();
+const countsForAll = new Map();
+
+for (let i = 0; i < N; i += 1) {
+  const currentNum = gets();
+  if (countsForAll[currentNum]) {
+    countsForAll[currentNum] += 1;
+  } else {
+    countsForAll[currentNum] = 1;
+  }
+}
+
+for (const number in countsForAll) {
+  if (countsForAll[number]) {
+    if (countsForAll[number] % 2) {
+      print(number);
+      break;
+    }
+  }
+}
