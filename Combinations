@@ -1,0 +1,20 @@
+// http://judge.telerikacademy.com/problem/01combinations
+
+const input = gets().split(' ').map(Number);
+const N = input[0];
+const K = input[1];
+
+const printCombinations = (n, k, index, combinations) => {
+  if (index === k) {
+    print(combinations.join(' '));
+    return;
+  }
+
+  const startIndex = index ? (combinations[index - 1]) + 1 : 1;
+  for (let i = startIndex; i <= n; i += 1) {
+    combinations[index] = i;
+    printCombinations(n, k, index + 1, combinations);
+  }
+};
+
+printCombinations(N, K, 0, []);
