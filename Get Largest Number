@@ -1,0 +1,18 @@
+// http://judge.telerikacademy.com/problem/02getlargestnumber
+
+const numbers = gets().split(' ').map(Number);
+let biggest;
+
+const getMaximum = (arr) => {
+  let currentBiggest = arr[0];
+
+  for (let i = 0; i < 3; i += 1) {
+    if (currentBiggest < arr[i]) {
+      currentBiggest = arr[i];
+    }
+  }
+  return currentBiggest;
+};
+
+biggest = getMaximum(numbers);
+print(biggest);
