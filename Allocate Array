@@ -1,0 +1,12 @@
+// http://judge.telerikacademy.com/problem/01allocatearray
+
+const size = +gets();
+const newArray = new Array(size);
+const MULTIPLIER = 5;
+
+let lineToPrint = "";
+for(let element = 0; element < size; element += 1) {
+    newArray[element] = element * MULTIPLIER;
+    lineToPrint += newArray[element] + "\n";
+}
+print(lineToPrint);
