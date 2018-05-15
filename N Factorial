@@ -1,0 +1,17 @@
+// http://judge.telerikacademy.com/problem/10nfactorial
+
+const N = +gets();
+const cal = (num) => {
+
+  let result = 1;
+  let multiplier = 1;
+  
+  while (multiplier <= num) {
+    result *= multiplier;
+    multiplier += 1;
+  }
+  
+  print(result);
+};
+  
+cal(N);
