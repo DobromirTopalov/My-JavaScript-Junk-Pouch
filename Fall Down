@@ -1,0 +1,50 @@
+// http://judge.telerikacademy.com/problem/01falldown
+
+const size = 8;
+const numbers = [];
+
+for (let i = 0; i < size; i += 1) {
+  numbers[i] = +gets();
+}
+numbers.sort((a, b) => (a - b));
+
+for (let i = 0; i < size; i += 1) {
+  numbers[i] = numbers[i].toString(2);
+  while (numbers[i].length < size) {
+    numbers[i] = '0' + numbers[i];
+  }
+}
+
+const rotatedNumbers = [];
+for (let i = size - 1; i >= 0; i -= 1) {
+  let line = '';
+  for (let j = 0; j < size; j += 1) {
+    line += numbers[j][i];
+  }
+  rotatedNumbers.push(line.split('').map(Number));
+}
+
+for (let i = 0; i < size; i += 1) {
+  for (let j = 0; j < size; j += 1) {
+    if (rotatedNumbers[i][j] === 1) {
+      const lastZero = rotatedNumbers[i].lastIndexOf(0);
+      if (lastZero > j && lastZero !== -1) {
+        [rotatedNumbers[i][j], rotatedNumbers[i][lastZero]] = [rotatedNumbers[i][lastZero], rotatedNumbers[i][j]];
+      }
+    }
+  }
+  rotatedNumbers[i] = rotatedNumbers[i].join('');
+}
+
+const finalResult = [];
+for (let i = 0; i < size; i += 1) {
+  let line = '';
+  for (let j = size - 1; j >= 0; j -= 1) {
+    line += rotatedNumbers[j][i];
+  }
+  finalResult.push(parseInt(line, 2));
+}
+
+for (let i = 0; i < size; i += 1) {
+  print(finalResult[i]);
+}
