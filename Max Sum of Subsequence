@@ -1,0 +1,27 @@
+// http://judge.telerikacademy.com/problem/08maxseqsum
+
+const size = +gets();
+const sequence = [];
+for (let i = 0; i < size; i += 1) {
+    sequence[i] = +gets();
+}
+
+let index = 0;
+let currentSum = 0;
+let finalSum = 0;
+
+for (let element = index + 1; element <= size; element += 1) {
+  if (element === size) {
+    index += 1;
+    element = index + 1;
+    currentSum = 0;
+  }
+
+  currentSum += sequence[index] + sequence[element];
+  sequence[index] = 0;
+
+  if (currentSum > finalSum) {
+    finalSum = currentSum;
+  }
+}
+print(finalSum);
