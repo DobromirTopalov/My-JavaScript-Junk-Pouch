@@ -1,0 +1,124 @@
+// http://judge.telerikacademy.com/problem/02medians
+
+class Heap {
+  constructor(compareFunc) {
+      this.values = [null];
+      this.compareFunc = compareFunc || ((x, y) => x < y);
+  }
+
+  get top() {
+      return this.values[1];
+  }
+
+  get count() {
+      return this.values.length - 1;
+  }
+
+  get isEmpty() {
+      return this.count === 0;
+  }
+
+  add(value) {
+      let index = this.values.length;
+      this.values.push(value);
+
+      while (index > 1 && this.compareFunc(value, this.values[index >> 1])) {
+          this.values[index] = this.values[index >> 1];
+          index >>= 1;
+      }
+
+      this.values[index] = value;
+  }
+
+  removeTop() {
+      const value = this.values[this.values.length - 1];
+      this.values.pop();
+
+      if (!this.isEmpty) {
+          this._heapifyDown(1, value);
+      }
+  }
+
+  _heapifyDown(index, value) {
+      while (index * 2 + 1 < this.values.length) {
+          const isFirstChildBetter =
+              this.compareFunc(
+                  this.values[index * 2],
+                  this.values[index * 2 + 1]
+              );
+
+          const smallerChildIndex = isFirstChildBetter ?
+              index * 2 :
+              index * 2 + 1;
+          if (this.compareFunc(this.values[smallerChildIndex], value)) {
+              this.values[index] = this.values[smallerChildIndex];
+              index = smallerChildIndex;
+          } else {
+              break;
+          }
+      }
+
+      if (index * 2 < this.values.length) {
+          const smallerChildIndex = index * 2;
+          if (this.compareFunc(this.values[smallerChildIndex], value)) {
+              this.values[index] = this.values[smallerChildIndex];
+              index = smallerChildIndex;
+          }
+      }
+
+      this.values[index] = value;
+  }
+}
+
+
+const heap = new Heap();
+let running = true;
+const keepHeap = [];
+const foundMedians = [];
+
+while (running) {
+  const input = gets().split(' ');
+  
+  if (input[0] === 'EXIT') {
+    running = false;
+    break;
+  }
+
+  if (input[0] === 'ADD') {
+    const elementToAdd = +input[1];
+    heap.add(elementToAdd);
+    keepHeap.push(elementToAdd);
+  }
+
+  if (input[0] === 'FIND') {
+    let median = null;
+    const sortedSequence = [];
+
+    while (!heap.isEmpty) {
+      const topElement = heap.top;
+      heap.removeTop();
+      sortedSequence.push(topElement);
+    }
+
+    keepHeap.forEach((element) => {
+      heap.add(element);
+    });
+
+    if (sortedSequence.length % 2 === 0) {
+      const indexOfLeftMidElement = Math.floor((sortedSequence.length - 1) / 2);
+      const indexOfRightMidElement = Math.ceil((sortedSequence.length - 1) / 2);
+
+      median = (sortedSequence[indexOfLeftMidElement] + sortedSequence[indexOfRightMidElement]) / 2;
+    } else {
+      const indexOfMidElement = ((sortedSequence.length - 1) / 2) | 0;
+
+      median = sortedSequence[indexOfMidElement];
+    }
+
+    foundMedians.push(median);
+  }
+
+}
+
+foundMedians.forEach((median) => print(median));
+quit(0);
