@@ -1,0 +1,79 @@
+// http://judge.telerikacademy.com/problem/29largestareamatrix
+
+const size = gets().split(' ');
+const sizeN = +size[0];
+const sizeM = +size[1];
+
+const maze = Array.from( { length: sizeN } );
+for (let row = 0; row < sizeN; row += 1) {
+  maze[row] = Array.from( { length: sizeM } );
+}
+for (let rows = 0; rows < sizeN; rows += 1) {
+  const input = gets().split(' ').map(Number);
+
+  for (let cols = 0; cols < sizeM; cols += 1) {
+    maze[rows][cols] = input[cols];
+  }
+}
+
+const mazeUsed = Array.from( { length: sizeN } );
+for (let row = 0; row < sizeN; row += 1) {
+  mazeUsed[row] = Array.from( { length: sizeM } );
+}
+
+for (let rows = 0; rows < sizeN; rows += 1) {
+  for (let cols = 0; cols < sizeM; cols += 1) {
+    mazeUsed[rows][cols] = 0;
+  }
+}
+
+const findMaxArea = (startX, startY, matrix, usedMatrix, NrowLimit, McolLimit) => {
+  let finalCounter = 0;
+
+  const traverse = (startI, startJ, array, usedArray, elem) => {
+    let count = 1;
+    usedMatrix[startI][startJ] = true;
+
+    if (((startI - 1) >= 0) &&
+    (array[startI - 1][startJ] === array[startI][startJ]) &&  
+    !usedArray[startI - 1][startJ]) {
+      count += traverse(startI - 1, startJ, array, usedArray, elem);
+    }
+
+    if (((startI + 1) < NrowLimit) &&
+    (array[startI + 1][startJ] === array[startI][startJ]) &&  
+    !usedArray[startI + 1][startJ]) {
+      count += traverse(startI + 1, startJ, array, usedArray, elem);
+    }
+
+    if (((startJ - 1) >= 0) &&
+    (array[startI][startJ - 1] === array[startI][startJ]) &&  
+    !usedArray[startI][startJ - 1]) {
+      count += traverse(startI, startJ - 1, array, usedArray, elem);
+    }
+
+    if (((startJ + 1) < McolLimit) &&
+    (array[startI][startJ + 1] === array[startI][startJ]) &&  
+    !usedArray[startI][startJ + 1]) {
+      count += traverse(startI, startJ + 1, array, usedArray, elem);
+    }
+
+      return count;
+    };
+
+    for (let i = startX; i < NrowLimit; i += 1) {
+    for (let j = startY; j < McolLimit; j += 1) {
+      if (!usedMatrix[i][j]) {
+        const currCounter = traverse(i, j, matrix, usedMatrix, matrix[i][j]);
+
+        if (finalCounter < currCounter) {
+          finalCounter = currCounter;
+        }
+      }
+    }
+  }
+  return finalCounter;
+};
+
+const result = findMaxArea(0, 0, maze, mazeUsed, sizeN, sizeM);
+print(result);
