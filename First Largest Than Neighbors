@@ -1,0 +1,23 @@
+// http://judge.telerikacademy.com/problem/06firstlarger
+
+const size = +gets();
+const numbers = gets().split(' ').map(Number);
+let index = -1;
+
+for (let i = 0; i < size - 1; i += 1) {
+  const largest = numbers[i];
+
+  if (i + 1 === size) {
+    break;
+  }
+  if (largest > numbers[i + 1] && i === 0) {
+    index = 0;
+    break;
+  }
+  if (largest > numbers[i + 1] && largest > numbers[i - 1]) {
+    index = i;
+    break;
+  }
+}
+
+print(index);
