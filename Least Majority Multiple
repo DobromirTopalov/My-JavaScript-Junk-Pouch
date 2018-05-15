@@ -1,0 +1,31 @@
+// http://judge.telerikacademy.com/problem/12leastmajoritymulti
+
+const first = +gets();
+const second = +gets();
+const third = +gets();
+const fourth = +gets();
+const fifth = +gets();
+
+for (let divider = 1; ; divider += 1) {
+  let count = 0;
+  if (divider % first === 0) {
+    count += 1;
+  }
+  if (divider % second === 0) {
+    count += 1;
+  }
+  if (divider % third === 0) {
+    count += 1;
+  }
+  if (divider % fourth === 0) {
+    count += 1;
+  }
+  if (divider % fifth === 0) {
+    count += 1;
+  }
+  if (count >= 3) {
+      print(divider);
+      break;
+  }
+}
+
