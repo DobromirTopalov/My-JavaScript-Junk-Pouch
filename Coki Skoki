@@ -1,0 +1,23 @@
+// http://judge.telerikacademy.com/problem/05cokiskoki
+
+const size = +gets();
+const sequence = gets().split(' ').map(Number);
+
+const jumps = Array.from({ length: size }).fill(0);
+
+for (let i = size - 1; i >= 0; i -= 1) {
+  let j = i + 1;
+  while (j < size) {
+    if (sequence[j] > sequence[i]) {
+      jumps[i] = jumps[j] + 1;
+      break;
+    } else if (jumps[j] === 0) {
+      break;
+    }
+
+    j += 1;
+  }
+}
+
+print(Math.max(...jumps));
+print(jumps.join(' '));
