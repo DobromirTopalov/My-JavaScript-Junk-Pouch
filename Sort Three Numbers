@@ -1,0 +1,28 @@
+// http://judge.telerikacademy.com/problem/07sort3numbers
+
+const one = +gets();
+const two = +gets();
+const three = +gets();
+
+let line = '';
+if (one >= two && one >= three) {
+  if (two >= three) {
+    line = `${one} ${two} ${three}`;
+  } else {
+    line = `${one} ${three} ${two}`;
+  }
+} else if (two >= one && two >= three) {
+  if (one >= three) {
+    line = `${two} ${one} ${three}`;
+  } else {
+    line = `${two} ${three} ${one}`;
+  }
+} else {
+  if (two >= one) {
+    line = `${three} ${two} ${one}`;
+  } else {
+    line = `${three} ${one} ${two}`;
+  }
+}
+
+print(line);
