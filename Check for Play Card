@@ -1,0 +1,47 @@
+// http://judge.telerikacademy.com/problem/03checkforplaycard
+
+const input = gets();
+
+switch (input) {
+  case '2':
+    print(`yes ${input}`);
+    break;
+  case '3':
+    print(`yes ${input}`);
+    break;
+  case '4':
+    print(`yes ${input}`);
+    break;
+  case '5':
+    print(`yes ${input}`);
+    break;
+  case '6':
+    print(`yes ${input}`);
+    break;
+  case '7':
+    print(`yes ${input}`);
+    break;
+  case '8':
+    print(`yes ${input}`);
+    break;
+  case '9':
+    print(`yes ${input}`);
+    break;
+  case '10':
+    print(`yes ${input}`);
+    break;
+  case 'J':
+    print(`yes ${input}`);
+    break;
+  case 'Q':
+    print(`yes ${input}`);
+    break;
+  case 'K':
+    print(`yes ${input}`);
+    break;
+  case 'A':
+    print(`yes ${input}`);
+    break;
+  default:
+    print(`no ${input}`);
+}
