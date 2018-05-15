@@ -1,0 +1,74 @@
+// http://judge.telerikacademy.com/problem/08actions
+
+class Graph {
+  constructor() {
+    this.childNodes = [];
+  }
+
+  addEdge(x, y) {
+    this.addNewEdge(y, x);
+    this.childNodes[x][0][1] += 1;
+  }
+
+  addNewEdge(x, y) {
+    if (typeof this.childNodes[x] === 'undefined') {
+      this.visited = false;
+      this.childNodes[x] = [];
+      this.edgeCounts = 0;
+      this.childNodes[x].push([this.visited, this.edgeCounts]);
+    }
+    if (typeof this.childNodes[y] === 'undefined') {
+      this.visited = false;
+      this.childNodes[y] = [];
+      this.edgeCounts = 0;
+      this.childNodes[y].push([this.visited, this.edgeCounts]);
+    }
+
+    this.childNodes[x].push(y);
+  }
+}
+
+let input = gets().split(' ').map(Number);
+const N = input[0];
+const M = input[1];
+const directedGraph = new Graph();
+
+let countActions = 0;
+
+for (let action = 0; action < M; action += 1) {
+  input = gets().split(' ').map(Number);
+  const from = input[1];
+  const to = input[0];
+
+  directedGraph.addEdge(from, to);
+}
+
+for (let i = 0; i < N; i += 1) {
+  const currentNode = directedGraph.childNodes[i];
+  if (typeof currentNode === 'undefined') {
+    directedGraph.childNodes[i] = [[false, 0]];
+  }
+}
+
+while (countActions < N) {
+  let index = null;
+
+  for (let action = 0; action < N; action += 1) {
+    const countOfEdgesToParent = directedGraph.childNodes[action][0][1];
+    const hasBeenVisited = directedGraph.childNodes[action][0][0];
+
+    if (countOfEdgesToParent === 0 && hasBeenVisited === false) {
+      index = action;
+      break;
+    }
+  }
+
+  for (let j = 1; j < directedGraph.childNodes[index].length; j += 1) {
+    const childIndex = directedGraph.childNodes[index][j];
+    directedGraph.childNodes[childIndex][0][1] -= 1;
+  }
+  print(index);
+  directedGraph.childNodes[index][0][0] = true;
+  countActions += 1;
+}
+quit(0);
