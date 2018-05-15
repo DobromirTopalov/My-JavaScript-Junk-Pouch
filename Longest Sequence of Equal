@@ -1,0 +1,27 @@
+// http://judge.telerikacademy.com/problem/04maxequalseq
+
+const size = +gets();
+
+const sequence = [];
+for(let i = 0; i < size; i += 1){
+    sequence[i] = +gets();
+}
+
+let theLongest = 0;
+let currentLongest = 1;
+
+for(let comparedNumber = 0; comparedNumber < size - 1; comparedNumber += 1) {
+    
+    if(sequence[comparedNumber] === sequence[comparedNumber + 1]) {
+        currentLongest += 1;
+    }else{
+        currentLongest = 1;
+    }
+
+    if(currentLongest > theLongest){
+        theLongest = currentLongest;
+    }
+
+}
+
+print(theLongest);
