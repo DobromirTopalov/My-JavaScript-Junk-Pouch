@@ -1,0 +1,67 @@
+// http://judge.telerikacademy.com/problem/31bitshiftmatrix
+
+const rows = +gets();
+const cols = +gets();
+const moves = +gets();
+const code = gets().split(' ');
+
+const field = Array.from({ lenght: rows });
+for (let i = 0; i < rows; i += 1) {
+  field[i] = Array.from({ lenght: cols });
+}
+
+let initializer = 0;
+for (let i = rows - 1; i > -1; i -= 1) {
+  for (let power = initializer, k = 0; power < cols + initializer; power += 1, k += 1) {
+    field[i][k] = Math.pow(2, power);
+  }
+  initializer += 1;
+}
+
+let sumOfPath = 0;
+let currR = rows - 1;
+let currC = 0;
+
+for (const move of code) {
+  const coef = Math.max(...[rows, cols]);
+  const nextRow = move / coef | 0;
+  const nextCol = move % coef;
+
+  if (currC < nextCol) {
+    for (let i = currC; i <= nextCol; i += 1) {
+      sumOfPath += field[currR][i];
+      field[currR][i] = 0;
+    }
+    currC = nextCol;
+  }
+
+  if (currC > nextCol) {
+    for (let i = currC; i >= nextCol; i -= 1) {
+      sumOfPath += field[currR][i];
+      field[currR][i] = 0;
+    }
+    currC = nextCol;
+  }
+  //console.log(currC, currR);
+    if (currR > nextRow) {
+      for (let i = currR; i >= nextRow; i -= 1) {
+        sumOfPath += field[i][currC];
+        field[i][currC] = 0;
+      }
+      //currC = nextCol;
+      currR = nextRow;
+    }
+    if (currR < nextRow) {
+      for (let i = currR; i <= nextRow; i += 1) {
+        sumOfPath += field[i][currC];
+        field[i][currC] = 0;
+      }
+      //currC = nextCol;
+      currR = nextRow;
+    }
+
+   // currC = nextCol;
+   // currR = nextRow;
+}
+//print(field);
+print(sumOfPath);
