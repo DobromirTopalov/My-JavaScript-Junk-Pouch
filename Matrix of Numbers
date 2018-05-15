@@ -1,0 +1,11 @@
+// http://judge.telerikacademy.com/problem/09numbersmatrix
+
+const size = +gets();
+
+for (let i = 1; i <= size; i += 1) {
+  let line = '';
+  for (let j = i; j <= size + i - 1; j += 1) {
+    line += j + ' ';
+  }
+  print(line);
+}
