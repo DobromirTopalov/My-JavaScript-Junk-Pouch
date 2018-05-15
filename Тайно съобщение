@@ -1,0 +1,13 @@
+// http://judge.telerikacademy.com/problem/l3p1tainosaobshtenie
+
+const text = gets();
+let textWithoutSymbols ='';
+
+for (let i = 0; i < text.length; i += 1) {
+  if ((text[i] >= 'A' && text[i] <= 'Z') || (text[i] >= 'a' && text[i] <= 'z')) {
+    textWithoutSymbols += text[i];
+  }
+}
+
+const finalText = textWithoutSymbols.split('').reverse().join('');
+print(finalText);
