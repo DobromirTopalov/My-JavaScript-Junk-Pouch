@@ -1,0 +1,57 @@
+// http://judge.telerikacademy.com/problem/06portals
+
+const startPoint = gets().split(' ').map(Number);
+const [R, C] = gets().split(' ').map(Number);
+
+const field = Array.from({
+  length: R,
+});
+for (let i = 0; i < R; i += 1) {
+  field[i] = Array.from({
+    length: C,
+  });
+}
+
+for (let i = 0; i < R; i += 1) {
+  field[i] = gets().split(' ');
+}
+
+let totalSumPower = 0;
+
+const traverse = (coords, curSum) => {
+  if (((coords[0] < 0 || coords[0] >= R) ||
+    (coords[1] < 0 || coords[1] >= C)) ||
+    (field[coords[0]][coords[1]] === '#')
+  ) {
+    return false;
+  }
+
+  let currSumPower = curSum;
+
+  const cellValue = +field[coords[0]][coords[1]];
+  if (cellValue === 0) {
+    currSumPower += cellValue;
+    totalSumPower = (totalSumPower < currSumPower) ?
+    currSumPower : totalSumPower;
+    return;
+  }
+
+  totalSumPower = (totalSumPower < currSumPower) ?
+  currSumPower : totalSumPower;
+
+  currSumPower += cellValue;
+
+  field[coords[0]][coords[1]] = 0;
+
+  // console.log(totalSumPower, 'currentSum: ', currSumPower, 'cell:', cellValue);
+
+  traverse([coords[0] - cellValue, coords[1]], currSumPower);
+  traverse([coords[0], coords[1] + cellValue], currSumPower);
+  traverse([coords[0] + cellValue, coords[1]], currSumPower);
+  traverse([coords[0], coords[1] - cellValue], currSumPower);
+  field[coords[0]][coords[1]] = cellValue;
+  return true;
+};
+
+traverse(startPoint, 0);
+print(totalSumPower);
