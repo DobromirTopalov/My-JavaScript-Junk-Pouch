@@ -1,0 +1,23 @@
+// http://judge.telerikacademy.com/problem/06maxksum
+
+const sizeOfSequence = +gets();
+const numberOfOperandsInSum = +gets();
+const sequence = [];
+
+for(let i = 0; i < sizeOfSequence; i += 1){
+    sequence[i] = +gets();
+}
+
+let maxSum = 0;
+
+const lowestNumber = Math.min(... sequence);
+for(let biggestNum = 0; biggestNum < numberOfOperandsInSum; biggestNum += 1) {
+
+    let currentBiggest = Math.max(... sequence);
+    let indexOfBiggest = sequence.indexOf(currentBiggest);
+    sequence[indexOfBiggest] = lowestNumber - 1;
+
+    maxSum += currentBiggest;
+}
+
+print(maxSum);
