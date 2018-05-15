@@ -1,0 +1,26 @@
+// http://judge.telerikacademy.com/problem/18tribonacci
+
+let numberOne = +gets();
+let numberTwo = +gets();
+let numberThree = +gets();
+let nThNumber = +gets();
+
+let temp;
+
+if (nThNumber === 1) {
+  print(numberOne);
+} else if (nThNumber === 2) {
+  print(numberTwo);
+} else if (nThNumber === 3) {
+  print(numberThree);
+} else {
+  const size = nThNumber - 3;
+  for (let i = 0; i < size; i += 1) {
+    temp = numberOne + numberTwo + numberThree;
+    numberOne = numberTwo;
+    numberTwo = numberThree;
+    numberThree = temp;
+  }
+  nThNumber = numberThree;
+  print(nThNumber);
+}
