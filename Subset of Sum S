@@ -1,0 +1,28 @@
+// http://judge.telerikacademy.com/problem/16subsetsums
+
+const sumToCheckFor = +gets();
+const sequence = gets().split(' ').map(Number);
+const size = sequence.length;
+
+const ourSums = Array.from({ length: sumToCheckFor + 1 }).fill(false);
+ourSums[0] = true;
+
+for (let num = 0; num < size; num += 1) {
+  for (let thisSum = sumToCheckFor; thisSum >= 0; thisSum -= 1) {
+    if (ourSums[thisSum]) {
+      const thisNum = sequence[num];
+      const currSum = thisSum + thisNum;
+
+      if (currSum > sumToCheckFor) {
+        continue;
+      }
+      ourSums[currSum] = true;
+    }
+  }
+}
+
+if (ourSums[sumToCheckFor]) {
+  print('yes');
+} else {
+  print('no');
+}
