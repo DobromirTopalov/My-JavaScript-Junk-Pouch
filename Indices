@@ -1,0 +1,40 @@
+// http://judge.telerikacademy.com/problem/01indices
+
+const size = +gets();
+const array = gets().split(' ').map(Number);
+const result = [];
+let outputLoop = '';
+let outputGood = '';
+let hasLoop = false;
+const used = [];
+
+for (let i = 0, k = 0; i < size; i += 0, k += 0) {
+  if (typeof(array[i]) !== 'undefined') {
+    // const cutIndex = result.indexOf(i);
+
+    if (used[i] >= 0) {
+      const cutIndex = used[i];
+      if (cutIndex > -1) {
+        outputGood += result.slice(0, cutIndex).join(' ');
+        outputLoop += result.slice(cutIndex, result.length).join(' ');
+        hasLoop = true;
+        break;
+      }
+    }
+
+    result.push(i);
+    used[i] = k;
+    k += 1;
+
+    i = array[i];
+    if (i < 0) {
+      break;
+    }
+  }
+}
+
+if (hasLoop) {
+  print(`${outputGood}(${outputLoop})`);
+} else {
+  print(result.join(' '));
+}
