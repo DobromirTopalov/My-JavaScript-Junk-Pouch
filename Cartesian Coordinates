@@ -1,0 +1,20 @@
+// http://judge.telerikacademy.com/problem/11cartesiancoords
+
+const targetX = +gets();
+const targetY = +gets();
+
+if (targetX === 0 && targetY === 0) {
+  print(0);
+} else if (targetX === 0 && (targetY > 0 || targetY < 0)) {
+  print(5);
+} else if ((targetX > 0 || targetX < 0) && targetY === 0) {
+  print(6);
+} else if (targetX > 0 && targetY > 0) {
+  print(1);
+} else if (targetX < 0 && targetY > 0) {
+  print(2);
+} else if (targetX < 0 && targetY < 0) {
+  print(3);
+} else {
+  print(4);
+}
