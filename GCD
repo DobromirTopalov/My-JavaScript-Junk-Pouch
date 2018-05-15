@@ -1,0 +1,13 @@
+// http://judge.telerikacademy.com/problem/15gcd
+
+const input = gets().split(' ').map(Number);
+
+const gcd = (a, b) => {
+  if (a === 0) {
+    return b;
+  }
+  return gcd(b%a, a);
+};
+
+const result = gcd(input[0], input[1]);
+print(result);
