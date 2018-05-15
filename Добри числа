@@ -1,0 +1,24 @@
+// http://judge.telerikacademy.com/problem/l2p2dobrichisla
+
+const input = gets().split(' ');
+
+let counter = 0;
+
+for (let number = +input[0]; number <= +input[1]; number += 1) {
+  let isGoodNum = true;
+
+  for (let div = 1; div < 10; div += 1) {
+    if (number.toString().includes(div)) {
+      if (number % div !== 0) {
+        isGoodNum = false;
+        break;
+      }
+    }
+  }
+
+  if (isGoodNum) {
+    counter += 1;
+  }
+}
+
+print(counter);
