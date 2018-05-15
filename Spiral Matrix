@@ -1,0 +1,35 @@
+// http://judge.telerikacademy.com/problem/17spiralmatrix
+
+const number = +gets();
+const size = number * number;
+
+const matrix = [];
+for (let i = 0; i < number; i += 1) {
+    const row = Array.from( { length: number } );
+    matrix.push(row);
+}
+
+let row = 0;
+let col = 0;
+let dir = 0;
+const rowDirections = [0, 1, 0, -1];
+const colDirections = [1, 0, -1, 0];
+
+for (let count = 1; count <= size; count += 1) {
+  if ( row >= 0 && row < number && col >= 0 && col < number && matrix[row][col] === undefined) {
+    matrix[row][col] = count;
+  } else {
+    row-= rowDirections[dir];
+    col-= colDirections[dir];
+
+    dir += 1;
+    dir %= 4;
+    count -= 1;
+  }
+  row += rowDirections[dir];
+  col += colDirections[dir];
+}
+
+for (const rows of matrix) {
+  print(rows.join(' '));
+}
