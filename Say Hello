@@ -1,0 +1,4 @@
+// http://judge.telerikacademy.com/problem/01sayhello
+
+const name = gets();
+print(`Hello, ${name}!`);
