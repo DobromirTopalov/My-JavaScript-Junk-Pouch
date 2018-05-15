@@ -1,0 +1,14 @@
+// http://judge.telerikacademy.com/problem/04appearancecount
+
+const size = +gets();
+const numbers = gets().split(' ').map(Number);
+const search = +gets();
+
+let counter = 0;
+for (let i = 0; i < size; i += 1) {
+  if (search === numbers[i]) {
+    counter += 1;
+  }
+}
+
+print(counter);
