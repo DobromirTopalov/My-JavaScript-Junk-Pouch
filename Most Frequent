@@ -1,0 +1,32 @@
+// http://judge.telerikacademy.com/problem/09mostfrequent
+
+const size = +gets();
+const sequence = [];
+for (let i = 0; i < size; i += 1) {
+    sequence[i] = +gets();
+}
+
+let mostFrequentNum;
+let countFrequent = 1;
+let finalCount = 1;
+let finalMostFrequent;
+for (let numbers = 0; numbers < size; numbers += 1) {
+  mostFrequentNum = sequence[numbers];
+
+  for (let nextNum = numbers + 1; nextNum < size; nextNum += 1) {
+
+    if (sequence[nextNum] === mostFrequentNum) {
+      countFrequent += 1;
+    }
+  }
+
+  if (countFrequent > finalCount) {
+    finalCount = countFrequent;
+    finalMostFrequent = mostFrequentNum;
+  }
+
+  countFrequent = 1;
+}
+
+const line = `${finalMostFrequent} (${finalCount} times)`;
+print(line);
