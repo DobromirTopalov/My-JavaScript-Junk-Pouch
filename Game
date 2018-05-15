@@ -1,0 +1,12 @@
+// http://judge.telerikacademy.com/problem/l1p2game
+
+const number = gets().split('').map(Number);
+const plusplus = number[0] + number[1] + number[2];
+const plusmultiply = number[0] + number[1] * number[2];
+const multiplyplus = number[0] * number[1] + number[2];
+const multiplymultiply = number[0] * number[1] * number[2];
+
+const results = [plusplus, plusmultiply, multiplyplus, multiplymultiply];
+const finalResult = Math.max(...results);
+
+print(finalResult);
