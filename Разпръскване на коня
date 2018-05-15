@@ -1,0 +1,85 @@
+// http://judge.telerikacademy.com/problem/07horsespread
+
+const N = +gets();
+const M = +gets();
+
+const targetColumn = (M / 2) | 0;
+
+const [horseX, horseY] = [+gets(), +gets()];
+const resultArray = [];
+
+const distance = (x, y) => {
+  x = Math.abs(x);
+  y = Math.abs(y);
+
+  if (x < y) {
+    const t = x;
+    x = y;
+    y = t;
+  }
+
+  // 2 corner cases
+  if (x === 1 && y === 0) {
+    return 3;
+  }
+  if (x === 2 && y === 2) {
+    return 4;
+  }
+
+  // main formula
+  const delta = x - y;
+  if (y > delta) {
+    return delta - 2 * Math.floor((delta - y) / 3);
+  }
+
+  return delta - 2 * Math.floor((delta - y) / 4);
+};
+
+if (targetColumn < horseY) {
+  const distDifference = Math.abs(targetColumn - horseY);
+  // // botom right
+  for (let y = horseX; y >= 0; y--) {
+    for (let x = distDifference; x > 0; x--) { // x = dist compute
+      if (x === distDifference) {
+        resultArray.push(distance(x, y) + 1);
+      } else {
+        break;
+      }
+    }
+  }
+
+  // top right
+  for (let x = 1; x < N - horseX; x++) {
+    for (let y = distDifference; y > 0; y--) { // x = dist compute
+      if (y === distDifference) {
+        resultArray.push(distance(y, x) + 1);
+      } else {
+        break;
+      }
+    }
+  }
+} else {
+  // // botom left
+  const distDifference = Math.abs(targetColumn - horseY);
+  for (let y = horseX; y >= 0; y--) {
+    for (let x = 0; x <= distDifference; x++) { // x < dist compute
+      if (x === distDifference) {
+        resultArray.push(distance(x, y) + 1);
+      }
+    }
+  }
+  // top left
+  for (let y = 1; y < N - horseX; y++) {
+    for (let x = 0; x <= distDifference; x++) { // x < dist compute
+      if (x === distDifference) {
+        resultArray.push(distance(x, y) + 1);
+      }
+    }
+  }
+}
+
+for (let i = 0; i < N; i += 1) {
+  if (resultArray[i]) {
+    print(resultArray[i]);
+  }
+}
