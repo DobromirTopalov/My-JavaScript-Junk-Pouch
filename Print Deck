@@ -1,0 +1,74 @@
+// http://judge.telerikacademy.com/problem/04printdeck
+
+const card = gets();
+const printCards = (theDeck) => {
+  let iteratorRange = 0;
+
+  switch (theDeck) {
+    case '2':
+      iteratorRange = 2;
+      break;
+    case '3':
+      iteratorRange = 3;
+      break;
+    case '4':
+      iteratorRange = 4;
+      break;
+    case '5':
+      iteratorRange = 5;
+      break;
+    case '6':
+      iteratorRange = 6;
+      break;
+    case '7':
+      iteratorRange = 7;
+      break;
+    case '8':
+      iteratorRange = 8;
+      break;
+    case '9':
+      iteratorRange = 9;
+      break;
+    case '10':
+      iteratorRange = 10;
+      break;
+    case 'J':
+      iteratorRange = 11;
+      break;
+    case 'Q':
+      iteratorRange = 12;
+      break;
+    case 'K':
+      iteratorRange = 13;
+      break;
+    case 'A':
+      iteratorRange = 14;
+      break;
+    default:
+    iteratorRange = 2;
+  }
+
+  let signOfCard = theDeck;
+  for (let i = 2; i <= iteratorRange; i += 1) {
+    switch (i) {
+      case 11:
+        signOfCard = 'J';
+        break;
+      case 12:
+        signOfCard = 'Q';
+        break;
+      case 13:
+        signOfCard = 'K';
+        break;
+      case 14:
+        signOfCard = 'A';
+        break;
+      default:
+      signOfCard = i;
+    }
+    const line = `${signOfCard} of spades, ${signOfCard} of clubs, ${signOfCard} of hearts, ${signOfCard} of diamonds`;
+    print(line);
+  }
+};
+
+printCards(card);
