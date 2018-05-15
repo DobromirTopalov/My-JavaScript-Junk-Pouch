@@ -1,0 +1,6 @@
+// http://judge.telerikacademy.com/problem/l1p1krachkomer
+
+const miles = +gets();
+const oneMileInMetres = 1609;
+const result = (miles * oneMileInMetres);
+print(result);
