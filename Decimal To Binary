@@ -1,0 +1,15 @@
+// http://judge.telerikacademy.com/problem/12dectobin
+
+let number = +gets();
+let binary = '';
+
+do {
+  if (number % 2 === 0) {
+    binary += 0;
+  } else {
+    binary += 1;
+  }
+  number = parseInt(number / 2);
+} while (number);
+
+print(binary.split('').reverse().join(''));
