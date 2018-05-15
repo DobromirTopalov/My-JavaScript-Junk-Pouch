@@ -1,0 +1,175 @@
+// http://judge.telerikacademy.com/problem/28seqinmatrix
+
+const size = gets().split(' ');
+let sizeN = +size[0];
+let sizeM = +size[1];
+const oldN = sizeN;
+const oldM = sizeM;
+
+const difference = Math.abs(sizeN - sizeM);
+let range = sizeN;
+if (sizeN < sizeM) {
+  sizeN += difference;
+  range = sizeM;
+} else if (sizeN > sizeM) {
+  sizeM += difference;
+  range = sizeN;
+}
+
+const matrix = Array.from( { length: sizeN } );
+for (let row = 0; row < sizeN; row += 1) {
+  matrix[row] = Array.from( { length: sizeM } );
+}
+for (let rows = 0; rows < oldN; rows += 1) {
+  const input = gets().split(' ').map(Number);
+
+  for (let cols = 0; cols < oldM; cols += 1) {
+    matrix[rows][cols] = input[cols];
+  }
+}
+
+if (oldN > oldM) {
+  for (let rows = 0; rows < sizeN; rows += 1) {
+    for (let cols = oldM; cols < sizeM; cols += 1) {
+      matrix[rows][cols] = 'warning';
+    }
+  }
+}
+
+if (oldN < oldM) {
+  for (let rows = oldN; rows < sizeN; rows += 1) {
+    for (let cols = 0; cols < sizeM; cols += 1) {
+      matrix[rows][cols] = 'warning';
+    }
+  }
+}
+/*
+*/
+/*
+8 6
+92 11 23 42 59 48
+09 92 23 72 56 14
+17 63 92 46 85 95 
+34 12 52 69 23 95 
+92 11 23 42 59 48
+09 92 23 72 56 14
+09 92 23 72 56 14
+09 92 23 72 56 14
+  
+6 8
+92 11 23 42 59 48 3 7
+09 92 23 72 56 14 1 9
+17 63 92 46 85 95 5 17
+34 12 52 69 23 95 95 95
+92 11 23 42 59 48 7 8
+09 92 23 72 56 14 5 8
+ */
+
+  // rows
+let currentLongest = 1;
+let theLongest = 0;
+
+for (let rows = 0; rows < range; rows += 1) {
+  for (let cols = 0; cols < range - 1; cols += 1) {
+    if (matrix[rows][cols] === matrix[rows][cols + 1] && matrix[rows][cols] !== 'warning' && matrix[rows][cols + 1] !== 'warning') {
+      currentLongest += 1;
+    } else {
+      currentLongest = 1;
+    }
+
+    if (currentLongest > theLongest) {
+      theLongest = currentLongest;
+    }
+  }
+}
+
+// cols
+currentLongest = 1;
+
+for (let cols = 0; cols < range; cols += 1) {
+  for (let rows = 0; rows < range - 1; rows += 1) {
+    if (matrix[rows][cols] === matrix[rows + 1][cols] && matrix[rows][cols] !== 'warning' && matrix[rows + 1][cols] !== 'warning') {
+      currentLongest += 1;
+    } else {
+      currentLongest = 1;
+    }
+
+    if (currentLongest > theLongest) {
+      theLongest = currentLongest;
+    }
+  }
+}
+
+// second including diagonal sides
+currentLongest = 1;
+
+for (let rows = 0; rows < range; rows += 1) {
+  let temp = rows;
+  for (let cols = 0; cols < rows; cols += 1) {
+    if (matrix[temp][cols] === matrix[temp-1][cols+1] && matrix[temp][cols] !== 'warning' && matrix[temp - 1][cols + 1] !== 'warning') {
+      currentLongest += 1;
+    } else {
+      currentLongest = 1;
+    }
+    if (currentLongest > theLongest) {
+      theLongest = currentLongest;
+    }
+    temp -= 1;
+  }
+}
+
+// second under diagonal
+currentLongest = 1;
+
+for (let rows = range - 1; rows > 0; rows -= 1) {
+  let temp = rows;
+  for (let cols = range - 1; cols > rows; cols -= 1) {
+    if (matrix[temp][cols] === matrix[temp + 1][cols - 1] && matrix[temp][cols] !== 'warning' && matrix[temp + 1][cols - 1] !== 'warning') {
+      currentLongest += 1;
+    } else {
+      currentLongest = 1;
+    }
+    if (currentLongest > theLongest) {
+      theLongest = currentLongest;
+    }
+    temp += 1;
+  }
+}
+
+// main under including diagonal
+currentLongest = 1;
+
+for (let rows = range - 1; rows >= 0; rows -= 1) {
+  let temp = rows;
+  for (let cols = 0; cols < range - rows-1; cols += 1) {
+    if (matrix[temp][cols] === matrix[temp + 1][cols + 1] && matrix[temp + 1][cols + 1] !== 'warning' && matrix[temp][cols] !== 'warning') {
+      currentLongest += 1;
+    } else {
+      currentLongest = 1;
+    }
+    if (currentLongest > theLongest) {
+      theLongest = currentLongest;
+    }
+    temp += 1;
+  }
+}
+
+// main above diagonal
+currentLongest = 1;
+
+for (let rows = 0; rows < range - 1; rows += 1) {
+  let temp = rows;
+  for (let cols = range - 1; cols >= range-rows; cols -= 1) {
+    if (matrix[temp][cols] === matrix[temp - 1][cols - 1] && matrix[temp][cols] !== 'warning' && matrix[temp-1][cols-1] !== 'warning') {
+      currentLongest += 1;
+    } else {
+      currentLongest = 1;
+    }
+    if (currentLongest > theLongest) {
+      theLongest = currentLongest;
+    }
+    temp -= 1;
+  }
+}
+
+print(theLongest);
