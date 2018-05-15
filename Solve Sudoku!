@@ -1,0 +1,76 @@
+// http://judge.telerikacademy.com/problem/01sudoku
+
+const N = 9;
+const M = 9;
+const matrix = Array.from({ length: N });
+for (let i = 0; i < N; i += 1) {
+  matrix[i] = Array.from({ length: M });
+}
+
+for (let i = 0; i < N; i += 1) {
+  const input = gets().split('');
+  for (let j = 0; j < M; j += 1) {
+    if (input[j] !== '-') {
+      matrix[i][j] = +input[j];
+    } else {
+      matrix[i][j] = 0;
+    }
+  }
+}
+
+const isSafe = (numberToPlace, row, col) => {
+    // checking in row
+    for (let i = 0; i < N; i += 1) {
+      if (numberToPlace === matrix[row][i]) {
+        return false;
+      }
+    }
+
+    // checking column
+    for (let i = 0; i < M; i += 1) {
+      if (numberToPlace === matrix[i][col]) {
+        return false;
+      }
+    }
+
+    // checking sub matrix
+    const curRow = row - (row % 3);
+    const curCol = col - (col % 3);
+
+    for (let i = curRow; i < curRow + 3; i += 1) {
+      for (let j = curCol; j < curCol + 3; j += 1) {
+        if (numberToPlace === matrix[i][j]) {
+          return false;
+        }
+      }
+    }
+    return true;
+};
+
+const solveSudoku = () => {
+  for (let row = 0; row < 9; row += 1) {
+    for (let col = 0; col < 9; col += 1) {
+      if (matrix[row][col] === 0) {
+        for (let number = 1; number <= 9; number += 1) {
+          if (isSafe(number, row, col)) {
+            matrix[row][col] = number;
+
+            if (solveSudoku()) {
+              return true;
+            }
+
+            matrix[row][col] = 0;
+          }
+        }
+
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+solveSudoku();
+for (let i = 0; i < N; i += 1) {
+  print(matrix[i].join(''));
+}
