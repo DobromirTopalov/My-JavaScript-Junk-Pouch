@@ -1,0 +1,53 @@
+// http://judge.telerikacademy.com/problem/27maxsuminmatrix
+
+let getFirstInput = gets().split(" ");
+const size_N = getFirstInput[0];
+const size_M = getFirstInput[1];
+const row_LIMIT = size_N - 2;
+const col_LIMIT = size_M - 2;
+
+const matrix = new Array(size_N)
+for (i = 0; i < size_N; i += 1) {
+    matrix[i] = new Array(size_M);
+}
+
+/* 
+const matrix = Array.from({length: size_N});
+for (let row = 0; row<size_N; row+=1) {
+    matrix[row] = Array.from({length:size_M});
+};
+
+*/
+
+for(let i = 0; i < size_N; i += 1) {
+    let input = gets().split(" ");
+    
+    for(let j = 0; j < size_M; j += 1) {
+        matrix[i][j] = +input[j];
+    }
+}
+
+
+let finalMaxSum = undefined;
+for(let row = 0; row < row_LIMIT; row += 1) {
+ 
+    for(let col = 0; col < col_LIMIT; col += 1) {
+        
+        const SIZE_lineH = row + 3;
+        const SIZE_lineV = col + 3;
+        let currentMaxSum = 0;
+        
+        for(let H_line = row; H_line < SIZE_lineH; H_line += 1){
+            for(let V_line = col; V_line < SIZE_lineV; V_line += 1){
+                currentMaxSum += matrix[H_line][V_line];
+            }
+        }
+
+        if(currentMaxSum > finalMaxSum || finalMaxSum === undefined) {
+
+            finalMaxSum = currentMaxSum;
+        }
+    }
+}
+
+print(finalMaxSum);
