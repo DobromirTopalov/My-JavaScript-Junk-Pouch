@@ -1,0 +1,40 @@
+// http://judge.telerikacademy.com/problem/01pathtoone
+
+const number = +gets();
+const increment = (value) => {
+  return value + 1;
+};
+
+const decrement = (value) => {
+  return value - 1;
+};
+
+const divide = (value) => {
+  if (value % 2 === 0) {
+    return value / 2 | 0;
+  }
+  return value;
+};
+
+const countOperations = (count, value, minOperations) => {
+  if (value === 1) {
+    if (!minOperations.includes(count)) {
+      minOperations.push(count);
+    }
+    return;
+  }
+
+  if (value % 2 === 0) {
+    countOperations(count + 1, divide(value), minOperations);
+  } else {
+    countOperations(count + 1, increment(value), minOperations);
+    countOperations(count + 1, decrement(value), minOperations);
+  }
+};
+
+const minOperations = [];
+const count = 0;
+
+countOperations(count, number, minOperations);
+print(Math.min(...minOperations));
+quit(0);
