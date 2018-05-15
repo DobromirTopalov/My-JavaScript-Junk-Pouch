@@ -1,0 +1,18 @@
+// http://judge.telerikacademy.com/problem/l3p3rankove
+
+const size = +gets();
+const numbers = gets().split(' ').map(Number);
+const lowest = Math.min(...numbers) - 1;
+
+const output = [...numbers];
+
+for (let rank = 1, i = 0; i < size; i += 1, rank += 1) {
+  const biggest = Math.max(...numbers);
+  const indexOfBiggest = numbers.indexOf(biggest);
+
+  output[indexOfBiggest] = rank;
+  numbers[indexOfBiggest] = lowest;
+}
+
+const finalOutput = output.join(' ');
+print(finalOutput);
