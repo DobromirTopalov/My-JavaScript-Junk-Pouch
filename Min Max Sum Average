@@ -1,0 +1,20 @@
+// http://judge.telerikacademy.com/problem/03mmsa
+
+const size = +gets();
+const sequence = [];
+let sum = 0;
+for (let i = 0; i < size; i += 1) {
+  sequence[i] = +gets();
+  sum += sequence[i];
+}
+
+const min = Math.min(...sequence);
+const max = Math.max(...sequence);
+const avg = sum/size;
+
+const line = `min=${min.toFixed(2)}
+max=${max.toFixed(2)}
+sum=${sum.toFixed(2)}
+avg=${avg.toFixed(2)}`;
+
+print(line);
