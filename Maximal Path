@@ -1,0 +1,94 @@
+// http://judge.telerikacademy.com/problem/04maxpath
+
+class Graph {
+  constructor() {
+    this.vertices = new Map();
+  }
+
+  addEdge(x, y) {
+    this.addNewEdge(x, y);
+    this.addNewEdge(y, x);
+  }
+
+  addNewEdge(x, y) {
+    if (typeof this.vertices.get(x) === 'undefined') {
+      this.vertices.set(x, []);
+      // this.vertices[x] = [];
+    }
+
+    this.vertices.get(x).push(y);
+  }
+}
+
+const tree = new Graph();
+const input = +gets();
+
+// init. my tree
+let edgesInput;
+
+let regex = new RegExp('([0-9]{1,30})', 'g');
+
+while (edgesInput = gets()) {
+  // console.log(edgesInput.match(regex));
+  
+  // edgesInput = edgesInput.split('<-')
+  //                       .join('')
+  //                       .slice(1, edgesInput.length-3)
+  //                       .split('  ')
+  //                       .map(Number);
+
+  
+  edgesInput = edgesInput.match(regex).map(Number);
+  const from = edgesInput[0];
+  const to = edgesInput[1];
+  tree.addEdge(to, from);
+}
+
+
+// function to get maxPath and bestLeaf
+const findMaxPath = (tree, leaf) => {
+  let maxPath = -1;
+  let currentPath = 0;
+  let bestNode;
+
+  const visited = [];
+
+  const dfs = (node, visited) => {
+    currentPath += node;
+    visited[node] = true;
+
+    if (tree.vertices.get(node).length === 1) {
+      if (currentPath > maxPath) {
+        maxPath = currentPath;
+        bestNode = node;
+      }
+    }
+
+    for (const child of tree.vertices.get(node)) {
+      if (!visited[child]) {
+        dfs(child, visited);
+        currentPath -= child;
+      }
+    }
+  };
+
+  dfs(leaf, visited);
+  return { maxPath, bestNode };
+};
+
+// get random leaf
+let randomLeaf;
+// console.log(tree);
+const tempArr = [...tree.vertices.keys()];
+for (let i = 0; i < tree.vertices.size; i += 1) {
+  if (typeof tree.vertices.has(tempArr[i]) && tree.vertices.get(tempArr[i]).length === 1) {
+    randomLeaf = tempArr[i];
+    break;
+  }
+}
+
+// console.log(randomLeaf,tree);
+const bestLeaf = findMaxPath(tree, randomLeaf);
+const result = findMaxPath(tree, bestLeaf.bestNode);
+
+print(result.maxPath);
