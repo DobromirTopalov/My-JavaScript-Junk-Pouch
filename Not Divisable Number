@@ -1,0 +1,16 @@
+// http://judge.telerikacademy.com/problem/10notdivisiblenumber
+
+const number = +gets();
+const DIVIDER_3 = 3;
+const DIVIDER_7 = 7;
+
+let line = '';
+
+for (let i = 1; i <= number; i += 1) {
+  if ( i % DIVIDER_3 === 0 || i % DIVIDER_7 === 0) {
+    continue;
+  }
+  line += i + ' ';
+}
+
+print(line);
