@@ -1,0 +1,14 @@
+// http://judge.telerikacademy.com/problem/07calc3
+
+const N = +gets();
+const K = +gets();
+
+const factorial = (number) => {
+  if ( number === 1 || number === 0) {
+    return 1;
+  }
+  return number * factorial(number - 1);
+};
+
+const result = factorial(N)/(factorial(K) * factorial(N - K));
+print(result);
