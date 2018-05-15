@@ -1,0 +1,12 @@
+// http://judge.telerikacademy.com/problem/11addingpolynomials
+
+const size = +gets();
+const polyOne = gets().split(' ').map(Number);
+const polyTwo = gets().split(' ').map(Number);
+
+let output = '';
+for (let coef = 0; coef < size; coef += 1) {
+  const sum = polyOne[coef] + polyTwo[coef];
+  output += sum + ' ';
+}
+print(output.trim());
