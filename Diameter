@@ -1,0 +1,66 @@
+// http://judge.telerikacademy.com/problem/03diameter
+
+class Graph {
+  constructor() {
+    this.vertices = [];
+  }
+
+  addEdge(x, y, value) {
+    this.addNewEdge(x, y, value);
+    this.addNewEdge(y, x, value);
+  }
+
+  addNewEdge(x, y, value) {
+    if (typeof this.vertices[x] === 'undefined') {
+      this.vertices[x] = [];
+    }
+
+    const vertice = [y, value];
+    this.vertices[x].push(vertice);
+  }
+}
+
+const N = +gets();
+const tree = new Graph();
+
+for (let i = 0; i < N - 1; i += 1) {
+  const input = gets().split(' ');
+  tree.addEdge(...input);
+}
+
+let longestPath = -99999;
+let visited = [];
+
+const DFS = (node, currPath) => {
+  let currentPath = currPath;
+
+  if (currentPath > longestPath) {
+    longestPath = currentPath;
+  }
+  // print('___', node, longestPath, currentPath);
+
+  if (!visited[node]) {
+    visited[node] = true;
+  }
+
+  if (tree.vertices[node].length) {
+    for (const child of tree.vertices[node]) {
+      if (!visited[child[0]]) {
+        currentPath += +child[1];
+        DFS(+child[0], currentPath);
+        currentPath -= +child[1];
+        // print(currentPath, +child[0]);
+      }
+    }
+  }
+};
+
+for (let j = 0; j < tree.vertices.length; j += 1) {
+  const nodeIndex = j;
+  if (tree.vertices[nodeIndex]) {
+    DFS(nodeIndex, 0);
+  }
+  visited = [];
+}
+// print(tree.vertices);
+print(longestPath);
