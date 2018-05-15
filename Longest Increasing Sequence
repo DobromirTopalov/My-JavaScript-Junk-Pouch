@@ -1,0 +1,23 @@
+// http://judge.telerikacademy.com/problem/05maxincreasingseq
+
+const size = +gets();
+const sequence = [];
+for(let i = 0; i < size; i += 1){
+    sequence[i] = +gets();
+}
+let currentLongest = 1;
+let theLongest = null;
+
+for (let currentNumber = 0; currentNumber < size - 1; currentNumber += 1) { 
+        if (sequence[currentNumber] < sequence[currentNumber + 1]) {
+            currentLongest += 1;
+        } else {
+            currentLongest = 1;
+        }
+
+        if (currentLongest > theLongest) {
+            theLongest = currentLongest;
+        }
+}
+
+print(theLongest);
