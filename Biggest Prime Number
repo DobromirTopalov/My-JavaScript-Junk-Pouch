@@ -1,0 +1,26 @@
+// http://judge.telerikacademy.com/problem/15primenumbers
+
+let NUM_N = +gets();
+    let numberToFind = null;
+    let isPrime = true;
+    
+    for(let currentN = NUM_N; currentN >= 2; currentN -= 1) {
+        
+        for(let k = 2; k <= Math.sqrt(currentN); k += 1) {
+            if(currentN % k === 0) {
+                
+                isPrime = false;
+            }
+        }
+        
+        if(isPrime) {
+            
+            numberToFind = currentN;
+            print(numberToFind);
+            break;
+        }else {
+            
+            isPrime = true;
+        }
+        
+    }
