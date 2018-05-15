@@ -1,0 +1,23 @@
+// http://judge.telerikacademy.com/problem/10oddevenproduct
+
+const size = +gets();
+const elements = gets().split(' ').map(Number);
+let line = '';
+
+let productOfOdd = 1;
+let productOfEven = 1;
+
+for (let i = 0; i < size; i += 1) {
+  if (i % 2 === 0) {
+    productOfOdd *= elements[i];
+  } else {
+    productOfEven *= elements[i];
+  }
+}
+
+if (productOfEven === productOfOdd) {
+  line += `yes ${productOfEven}`;
+} else {
+  line += `no ${productOfOdd} ${productOfEven}`;
+}
+print(line);
