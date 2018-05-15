@@ -1,0 +1,222 @@
+// http://judge.telerikacademy.com/problem/03jedimeditation
+
+class ListNode {
+  constructor(value, next) {
+    this.value = value || null;
+    this.next = next || null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
+  get first() {
+    if (this.head !== null) {
+      return this.head.value;
+    }
+    return;
+  }
+
+  get last() {
+    if (this.tail !== null) {
+      return this.tail.value;
+    }
+    return;
+  }
+
+  get length() {
+    return this.size;
+  }
+
+  append(...nodes) {
+    nodes.forEach( (node) => {
+      const newNode = new ListNode(node);
+
+      if (this.head === null) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        this.tail.next = newNode;
+        this.tail = newNode;
+      }  
+    });
+    
+    this.size += nodes.length;
+    return this;
+  }
+
+  prepend(...nodes) {
+    nodes.reverse().forEach( (node) => {
+      const newNode = new ListNode(node);
+      
+      if (this.head === null) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        newNode.next = this.head;
+        this.head = newNode;
+      }
+    });
+    
+    this.size += nodes.length;
+    return this;
+  }  
+
+  insert(index, ...nodes) {
+    if (index < 0 || index > this.size) {
+      throw new Error('Invalid index!');
+    }
+
+    if (index === 0) {
+      return this.prepend(...nodes);
+    } else if (index === this.size) {
+      return this.append(...nodes);
+    } else {
+      let insertAfterThisNodeAtIndex = this.nodeAtIndex(index - 1);
+
+      nodes.forEach( (node) => {
+        const newNode = new ListNode(node);
+        newNode.next = insertAfterThisNodeAtIndex.next;
+        insertAfterThisNodeAtIndex.next = newNode;
+        insertAfterThisNodeAtIndex = newNode;
+      });
+
+      this.size += nodes.length;
+    }
+
+    return this;
+  }
+
+  at(index, value) {
+    this.validateIndex(index);
+
+    let nodeToReturn = this.nodeAtIndex(index);
+    if (typeof (value) !== 'undefined') {
+      nodeToReturn.value = value;
+    }
+    return nodeToReturn.value;
+  }
+
+  toString() {
+    return this.toArray().join(' -> ');
+  }
+
+  validateIndex(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error('Invalid index!');
+    }
+  }
+
+  nodeAtIndex(index) {
+    let node = this.head;
+    for (let i = 0; i < index; i  += 1) {
+      node = node.next;
+    }
+
+    return node;
+  }
+
+  removeAt(index) {
+    this.validateIndex(index);
+
+    if (index === 0) {
+      const result = this.head.value;
+      this.head = this.head.next;
+
+      if (this.size === 1) {
+        this.tail = null;
+      }
+
+      this.size -= 1;
+      return result;
+    } else {
+      let removeAfterNodeAtIndex = this.nodeAtIndex(index - 1);
+      const result = removeAfterNodeAtIndex.next.value;
+      removeAfterNodeAtIndex.next = removeAfterNodeAtIndex.next.next;
+
+      if (index === this.size - 1) {
+        this.tail = removeAfterNodeAtIndex;
+      }
+
+      this.size -= 1;
+      return result;
+    }
+  }
+
+  *[Symbol.iterator]() {
+    let nextNode = this.head;
+    for (let i = 0; i < this.size; i += 1) {
+      yield nextNode.value;
+      nextNode = nextNode.next;
+    }
+  }
+
+  toArray() {
+    return [...this];
+  }
+}
+
+//.............................................................................
+
+class Queue {
+  constructor() {
+    this.LinkedList = new LinkedList();
+  }
+
+  enqueue(value) {
+    this.LinkedList.append(value);
+    return this;
+  }
+
+  dequeue() {
+    if (this.LinkedList.size) {
+      return this.LinkedList.removeAt(0);
+    }
+    return null;
+  }
+
+  get length() {
+    return this.LinkedList.size;
+  }
+}
+
+const numberOfJedi = +gets();
+const arrayOfJedi = gets().split(' ');
+
+const queueMasters = new Queue();
+const queueKnights = new Queue();
+const queuePadawans = new Queue();
+
+for (let i = 0; i < numberOfJedi; i += 1) {
+  if (arrayOfJedi[i][0] === 'M') {
+    queueMasters.enqueue(arrayOfJedi[i]);
+  }
+  if (arrayOfJedi[i][0] === 'K') {
+    queueKnights.enqueue(arrayOfJedi[i]);
+  }
+  if (arrayOfJedi[i][0] === 'P') {
+    queuePadawans.enqueue(arrayOfJedi[i]);
+  }
+}
+
+let output = '';
+const MastersSize = queueMasters.length;
+const KnightsSize = queueKnights.length;
+const PadawansSize = queuePadawans.length;
+
+for (let i = 0; i < MastersSize; i += 1) {
+  output += queueMasters.dequeue() + ' ';
+}
+for (let i = 0; i < KnightsSize; i += 1) {
+  output += queueKnights.dequeue() + ' ';
+}
+for (let i = 0; i < PadawansSize; i += 1) {
+  output += queuePadawans.dequeue() + ' ';
+}
+
+print(output);
+quit(0);
