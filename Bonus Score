@@ -1,0 +1,16 @@
+// http://judge.telerikacademy.com/problem/02bonusscore
+
+let score = +gets();
+
+if (score >= 1 && score <= 3) {
+  score *= 10;
+  print(score);
+} else if (score >= 4 && score <= 6) {
+  score *= 100;
+  print(score);
+} else if (score >= 7 && score <= 9) {
+  score *= 1000;
+  print(score);
+} else {
+  print('invalid score');
+}
